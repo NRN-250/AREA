@@ -47,9 +47,9 @@ export default function ServicesPage() {
             // For GitHub, use the special linking endpoint that stores user email in session
             // This ensures GitHub gets linked to the current logged-in user
             if (service.name.toLowerCase() === "github") {
-                window.location.href = `http://localhost:8080/api/user/services/connect/github`;
+                window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/api/user/services/connect/github`;
             } else {
-                window.location.href = `http://localhost:8080/oauth2/authorization/${service.name.toLowerCase()}`;
+                window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/oauth2/authorization/${service.name.toLowerCase()}`;
             }
             return;
         }

@@ -94,7 +94,7 @@ export default function AuthPage() {
           type="button"
           className="w-full flex items-center justify-center gap-3 py-2 px-4 rounded-xl shadow-md bg-white border border-gray-300 hover:bg-gray-100 transition"
           onClick={() =>
-            (window.location.href = "http://localhost:8080/oauth2/authorization/google")
+            (window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/oauth2/authorization/google`)
           }
         >
           <svg className="w-5 h-5" viewBox="0 0 533.5 544.3">
