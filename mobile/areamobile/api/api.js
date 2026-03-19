@@ -15,7 +15,7 @@ const getApiUrl = () => {
         console.error('Could not detect Expo host:', error);
     }
 
-    return 'http://localhost:8080';
+    return Constants.expoConfig?.extra?.apiUrl || 'http://localhost:8080';
 };
 
 const API_URL = getApiUrl();
