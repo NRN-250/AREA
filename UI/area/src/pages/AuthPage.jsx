@@ -12,11 +12,11 @@ export default function AuthPage() {
     e.preventDefault();
     try {
       if (mode === "login") {
-        const res = await api.post("/auth/login", { email, password });
+        const res = await api.post("/api/auth/login", { email, password });
         localStorage.setItem("userToken", res.data.token);
         window.location.href = "/";
       } else {
-        await api.post("/auth/register", { email, username, password });
+        await api.post("/api/auth/register", { email, username, password });
         setMessage("Registered! Please log in.");
         setTimeout(() => setMode("login"), 1500);
       }

@@ -40,6 +40,8 @@ public class SecurityConfig {
                                 "http://localhost:8081",
                                 "http://localhost:5173",
                                 "http://localhost:3000",
+                                "https://area-250.up.railway.app",
+                                "https://adventurous-analysis-production.up.railway.app",
                                 frontendUrl));
                 configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                 configuration.setAllowedHeaders(Arrays.asList("*"));
