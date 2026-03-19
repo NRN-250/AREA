@@ -1,0 +1,60 @@
+version: '3.9'
+services:
+  server:
+    build: ./API/area
+    container_name: area_server
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:file:/data/area_db
+      SPRING_DATASOURCE_DRIVERCLASSNAME: org.h2.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+      SPRING_H2_CONSOLE_ENABLED: "true"
+    volumes:
+      - backend_data:/data
+      - shared_apk:/export-apk:ro
+    networks:
+      - area_network
+
+  client_mobile:
+    build: ./mobile/areamobile
+    container_name: area_mobile
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - shared_apk:/export-apk
+      - ./mobile/areamobile:/app
+      - /app/node_modules
+    depends_on:
+      - server
+    networks:
+      - area_network
+    stdin_open: true
+    tty: true
+
+  client_web:
+    build: ./UI/area
+    container_name: area_web
+    ports:
+      - "8081:8081"
+    environment:
+      VITE_API_URL: http://localhost:8080
+    depends_on:
+      - server
+      - client_mobile
+    volumes:
+      - shared_apk:/app/public/apk:ro
+    networks:
+      - area_network
+
+volumes:
+  shared_apk:
+    driver: local
+  backend_data:
+    driver: local
+
+networks:
+  area_network:
+    driver: bridge
