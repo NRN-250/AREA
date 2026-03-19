@@ -1,4 +1,2 @@
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "API/area/Dockerfile"
-dockerContext = "API/area"
