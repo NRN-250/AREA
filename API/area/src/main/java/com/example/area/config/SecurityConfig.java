@@ -29,7 +29,7 @@ public class SecurityConfig {
                 this.customOAuth2SuccessHandler = customOAuth2SuccessHandler;
         }
 
-        @Value("${app.frontend.url:http://localhost:8081}")
+        @Value("${app.frontend.url:https://area-250.up.railway.app}")
         private String frontendUrl;
 
         @Bean

@@ -32,7 +32,7 @@ public class CustomOAuth2SuccessHandler
     private final JwtConfig jwtConfig;
     private final OAuth2AuthorizedClientService authorizedClientService;
 
-    @Value("${app.frontend.url:http://localhost:8081}")
+    @Value("${app.frontend.url:https://area-250.up.railway.app}")
     private String frontendUrl;
 
     public CustomOAuth2SuccessHandler(UserRepository userRepository, JwtConfig jwtConfig,
