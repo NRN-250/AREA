@@ -109,6 +109,10 @@ public class SecurityConfig {
                                 // OAuth2 login for browser-based flows only
                                 .oauth2Login(oauth2 -> oauth2
                                                 .successHandler(customOAuth2SuccessHandler)
+                                                .failureHandler((request, response, exception) -> {
+                                                        System.out.println("OAuth2 Error: " + exception.getMessage());
+                                                        response.sendRedirect(frontendUrl + "/?error=" + java.net.URLEncoder.encode(exception.getMessage(), "UTF-8"));
+                                                })
                                                 .authorizationEndpoint(auth -> auth.baseUri("/oauth2/authorization")))
                                 .addFilterBefore(
                                                 new com.example.area.config.JwtAuthenticationFilter(secretKey),
