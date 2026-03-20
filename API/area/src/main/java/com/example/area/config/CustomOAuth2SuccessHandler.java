@@ -188,6 +188,10 @@ public class CustomOAuth2SuccessHandler
                 redirectBase = "http://localhost:8081";
             } else if (origin.contains("localhost:3000")) {
                 redirectBase = "http://localhost:3000";
+            } else if (origin.contains("area-250.up.railway.app")) {
+                redirectBase = "https://area-250.up.railway.app";
+            } else if (origin.contains("adventurous-analysis-production.up.railway.app")) {
+                redirectBase = "https://adventurous-analysis-production.up.railway.app";
             }
         }
 
