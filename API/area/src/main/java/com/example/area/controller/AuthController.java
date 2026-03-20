@@ -31,7 +31,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
             String token = authService.login(request);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(java.util.Map.of("token", token));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
