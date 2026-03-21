@@ -22,20 +22,14 @@ export default function Footer() {
           <Link to="/about" className="text-gray-600 font-medium hover:text-indigo-600 transition">
             About Us
           </Link>
-          <a
-            href="https://github.com/NRN-250/AREA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 font-medium hover:text-indigo-600 transition flex items-center gap-2"
-          >
-            <FaGithub className="text-lg" /> Source Code
-          </a>
         </div>
 
         {/* Credit */}
         <div className="flex items-center gap-1 text-gray-600 text-sm font-medium">
-          Designed & Built with <FaHeart className="text-rose-500" /> by 
-          <span className="text-indigo-600 ml-1">Noah Nganji</span>
+          Designed & built by 
+          <a href="https://github.com/NRN-250/AREA" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 transition ml-1 font-bold">
+            NRN-250
+          </a>
         </div>
 
       </div>
