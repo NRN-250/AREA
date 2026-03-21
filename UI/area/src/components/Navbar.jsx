@@ -2,21 +2,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
+import api from "../api/api";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [username, setUsername] = useState("");
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
-    setLoggedIn(!!localStorage.getItem("userToken"));
+    const token = localStorage.getItem("userToken");
+    setLoggedIn(!!token);
+    if (token) {
+      api.get("/api/user/profile")
+        .then(res => setUsername(res.data.username || res.data.email || ""))
+        .catch(() => setUsername(""));
+    }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     setLoggedIn(false);
     setMenuOpen(false);
+    setUsername("");
     navigate("/auth");
   };
 
@@ -64,18 +73,29 @@ export default function Navbar() {
             </Link>
           ) : (
             <div className="relative">
-              {/* Profile Icon */}
+              {/* Profile Icon + Username */}
               <button
                 aria-label="Toggle Profile Menu"
-                className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition mt-1"
+                className="flex flex-col items-center gap-0.5 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
                 onClick={() => setMenuOpen((prev) => !prev)}
               >
                 <FaUserCircle size={22} />
+                {username && (
+                  <span className="text-xs font-semibold leading-none max-w-[80px] truncate">
+                    {username}
+                  </span>
+                )}
               </button>
 
               {/* Dropdown */}
               {menuOpen && (
-                <div className="absolute right-0 mt-3 w-40 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg overflow-hidden z-50">
+                <div className="absolute right-0 mt-3 w-44 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg overflow-hidden z-50">
+                  {username && (
+                    <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Signed in as</p>
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">{username}</p>
+                    </div>
+                  )}
                   <button
                     className="w-full text-left px-4 py-2 text-gray-800 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                     onClick={() => {
