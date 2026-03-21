@@ -35,8 +35,9 @@ export default function AuthPage() {
         {/* Form */}
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="text-gray-700 text-sm">Email</label>
+            <label htmlFor="email" className="text-gray-700 text-sm">Email</label>
             <input
+              id="email"
               type="email"
               className="w-full px-4 py-2 mt-1 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               placeholder="example@mail.com"
@@ -48,8 +49,9 @@ export default function AuthPage() {
 
           {mode === "register" && (
             <div>
-              <label className="text-gray-700 text-sm">Username</label>
+              <label htmlFor="username" className="text-gray-700 text-sm">Username</label>
               <input
+                id="username"
                 type="text"
                 className="w-full px-4 py-2 mt-1 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
                 placeholder="Username"
@@ -61,8 +63,9 @@ export default function AuthPage() {
           )}
 
           <div>
-            <label className="text-gray-700 text-sm">Password</label>
+            <label htmlFor="password" className="text-gray-700 text-sm">Password</label>
             <input
+              id="password"
               type="password"
               className="w-full px-4 py-2 mt-1 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
               placeholder="••••••••"
@@ -85,7 +88,7 @@ export default function AuthPage() {
         {/* Divider */}
         <div className="flex items-center gap-2 my-4">
           <hr className="flex-1 border-gray-300" />
-          <span className="text-gray-400 text-sm">OR</span>
+          <span className="text-gray-500 text-sm">OR</span>
           <hr className="flex-1 border-gray-300" />
         </div>
 

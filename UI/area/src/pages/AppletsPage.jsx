@@ -108,7 +108,7 @@ export default function AppletsPage() {
           </div>
           <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
             <p className="text-gray-600 text-sm mb-1">Inactive</p>
-            <p className="text-3xl font-bold text-gray-400">
+            <p className="text-3xl font-bold text-gray-500">
               {applets.filter(a => !a.enabled).length}
             </p>
           </div>
@@ -171,7 +171,7 @@ export default function AppletsPage() {
                         )}
                       </div>
 
-                      <div className="text-2xl text-gray-400">→</div>
+                      <div className="text-2xl text-gray-500">→</div>
 
                       <div className="flex-1 bg-purple-50 p-4 rounded-lg border border-purple-200">
                         <p className="text-xs font-semibold text-purple-600 mb-1">THEN</p>
@@ -215,6 +215,7 @@ export default function AppletsPage() {
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       }`}
                       title={applet.enabled ? 'Disable' : 'Enable'}
+                      aria-label={applet.enabled ? 'Disable Applet' : 'Enable Applet'}
                     >
                       {applet.enabled ? <FaToggleOn size={24} /> : <FaToggleOff size={24} />}
                     </button>
@@ -222,6 +223,7 @@ export default function AppletsPage() {
                       onClick={() => handleDeleteClick(applet)}
                       className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition"
                       title="Delete"
+                      aria-label="Delete Applet"
                     >
                       <FaTrash size={20} />
                     </button>

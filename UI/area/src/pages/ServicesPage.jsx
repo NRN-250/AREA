@@ -204,7 +204,7 @@ export default function ServicesPage() {
 
                                 {/* No actions/reactions message */}
                                 {actions.length === 0 && reactions.length === 0 && (
-                                    <p className="text-gray-400 text-sm italic mb-4">
+                                    <p className="text-gray-500 text-sm italic mb-4">
                                         No actions or reactions available
                                     </p>
                                 )}

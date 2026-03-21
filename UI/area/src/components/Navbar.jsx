@@ -55,6 +55,7 @@ export default function Navbar() {
             <div className="relative">
               {/* Profile Icon */}
               <button
+                aria-label="Toggle Profile Menu"
                 className="flex items-center gap-1 text-gray-700 hover:text-indigo-600 transition"
                 onClick={() => setMenuOpen((prev) => !prev)}
               >
