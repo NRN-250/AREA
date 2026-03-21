@@ -135,6 +135,8 @@ public class GitHubPollingService {
                     return true;
                 }
             }
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("GitHub API rejected check for new push in {}/{}: [{}] {}", owner, repo, e.getStatusCode(), e.getResponseBodyAsString());
         } catch (Exception e) {
             log.error("Error checking for new push in {}/{}: {}", owner, repo, e.getMessage());
         }
@@ -178,6 +180,8 @@ public class GitHubPollingService {
                     return true;
                 }
             }
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("GitHub API rejected check for new issues in {}/{}: [{}] {}", owner, repo, e.getStatusCode(), e.getResponseBodyAsString());
         } catch (Exception e) {
             log.error("Error checking for new issues in {}/{}: {}", owner, repo, e.getMessage());
         }

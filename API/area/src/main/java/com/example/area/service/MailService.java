@@ -27,7 +27,7 @@ public class MailService {
             msg.setTo(to);
             msg.setSubject(subject);
             msg.setText(body);
-            msg.setFrom("noreply@area.support <" + fromEmail + ">");
+            msg.setFrom(fromEmail);
 
             log.info("Sending email to {} with subject: {}", to, subject);
             sender.send(msg);

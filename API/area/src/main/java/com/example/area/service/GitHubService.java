@@ -41,6 +41,9 @@ public class GitHubService {
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
             log.info("Issue created successfully: {}", response.getBody().get("html_url"));
             return response.getBody();
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("GitHub API rejected Create Issue [{}]: {}", e.getStatusCode(), e.getResponseBodyAsString());
+            throw new RuntimeException("Failed to create GitHub issue: " + e.getResponseBodyAsString(), e);
         } catch (Exception e) {
             log.error("Failed to create issue: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to create GitHub issue: " + e.getMessage(), e);
@@ -63,6 +66,9 @@ public class GitHubService {
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
             log.info("Comment created successfully: {}", response.getBody().get("html_url"));
             return response.getBody();
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("GitHub API rejected Create Comment [{}]: {}", e.getStatusCode(), e.getResponseBodyAsString());
+            throw new RuntimeException("Failed to create GitHub comment: " + e.getResponseBodyAsString(), e);
         } catch (Exception e) {
             log.error("Failed to create comment: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to create GitHub comment: " + e.getMessage(), e);
