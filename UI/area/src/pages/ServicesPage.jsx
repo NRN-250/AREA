@@ -80,21 +80,21 @@ export default function ServicesPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 flex items-center justify-center">
-                <div className="text-xl text-gray-600">Loading services...</div>
+            <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 dark:from-[#111111] dark:to-[#111111] flex items-center justify-center">
+                <div className="text-xl text-gray-600 dark:text-gray-400">Loading services...</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 px-6 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 dark:from-[#111111] dark:to-[#111111] px-6 py-12 transition-colors duration-200">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-8">
                     <div>
-                        <h1 className="text-4xl font-bold text-gray-800 mb-2">Services</h1>
-                        <p className="text-gray-600">
-                            Connect services to unlock their <span className="text-indigo-600 font-semibold">actions</span> and <span className="text-purple-600 font-semibold">reactions</span>
+                        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">Services</h1>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Connect services to unlock their <span className="text-indigo-600 dark:text-indigo-400 font-semibold">actions</span> and <span className="text-purple-600 dark:text-purple-400 font-semibold">reactions</span>
                         </p>
                     </div>
                     <button
@@ -106,14 +106,14 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Legend */}
-                <div className="flex gap-6 mb-8 bg-white p-4 rounded-lg shadow">
+                <div className="flex gap-6 mb-8 bg-white dark:bg-[#1A1A1A] p-4 rounded-lg shadow border border-transparent dark:border-gray-800">
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-indigo-500 rounded-full"></div>
-                        <span className="text-gray-700 text-sm font-medium">Actions (Triggers)</span>
+                        <div className="w-3 h-3 bg-indigo-500 dark:bg-indigo-400 rounded-full"></div>
+                        <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">Actions (Triggers)</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                        <span className="text-gray-700 text-sm font-medium">Reactions (Responses)</span>
+                        <div className="w-3 h-3 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
+                        <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">Reactions (Responses)</span>
                     </div>
                 </div>
 
@@ -127,9 +127,9 @@ export default function ServicesPage() {
                         return (
                             <div
                                 key={service.name}
-                                className={`relative bg-white rounded-xl p-6 shadow border-2 transition-all hover:shadow-lg ${connected
-                                    ? "border-green-400"
-                                    : "border-gray-200 hover:border-indigo-300"
+                                className={`relative bg-white dark:bg-[#1A1A1A] rounded-xl p-6 shadow border-2 dark:border transition-all hover:shadow-lg ${connected
+                                    ? "border-green-400 dark:border-green-500/50"
+                                    : "border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-500/50"
                                     }`}
                             >
                                 {/* Connected Badge */}
@@ -145,10 +145,10 @@ export default function ServicesPage() {
                                         <FaPlug className="text-white text-xl" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-bold text-gray-800 capitalize">
+                                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 capitalize">
                                             {service.name}
                                         </h3>
-                                        <p className="text-gray-500 text-sm">{service.description}</p>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm">{service.description}</p>
                                     </div>
                                 </div>
 
@@ -156,8 +156,8 @@ export default function ServicesPage() {
                                 {actions.length > 0 && (
                                     <div className="mb-4">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <FaPlay className="text-indigo-500 text-sm" />
-                                            <span className="text-indigo-600 font-semibold text-sm">
+                                            <FaPlay className="text-indigo-500 dark:text-indigo-400 text-sm" />
+                                            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
                                                 Actions ({actions.length})
                                             </span>
                                         </div>
@@ -165,12 +165,12 @@ export default function ServicesPage() {
                                             {actions.map((action) => (
                                                 <div
                                                     key={action.name}
-                                                    className="bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2"
+                                                    className="bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-200 dark:border-indigo-500/30 rounded-lg px-3 py-2"
                                                 >
-                                                    <p className="text-gray-800 font-medium text-sm">
+                                                    <p className="text-gray-800 dark:text-indigo-300 font-medium text-sm">
                                                         {action.name.replace(/_/g, " ")}
                                                     </p>
-                                                    <p className="text-gray-500 text-xs">{action.description}</p>
+                                                    <p className="text-gray-500 dark:text-indigo-400 text-xs opacity-80">{action.description}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -181,8 +181,8 @@ export default function ServicesPage() {
                                 {reactions.length > 0 && (
                                     <div className="mb-4">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <FaBolt className="text-purple-500 text-sm" />
-                                            <span className="text-purple-600 font-semibold text-sm">
+                                            <FaBolt className="text-purple-500 dark:text-purple-400 text-sm" />
+                                            <span className="text-purple-600 dark:text-purple-400 font-semibold text-sm">
                                                 Reactions ({reactions.length})
                                             </span>
                                         </div>
@@ -190,12 +190,12 @@ export default function ServicesPage() {
                                             {reactions.map((reaction) => (
                                                 <div
                                                     key={reaction.name}
-                                                    className="bg-purple-50 border border-purple-200 rounded-lg px-3 py-2"
+                                                    className="bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-500/30 rounded-lg px-3 py-2"
                                                 >
-                                                    <p className="text-gray-800 font-medium text-sm">
+                                                    <p className="text-gray-800 dark:text-purple-300 font-medium text-sm">
                                                         {reaction.name.replace(/_/g, " ")}
                                                     </p>
-                                                    <p className="text-gray-500 text-xs">{reaction.description}</p>
+                                                    <p className="text-gray-500 dark:text-purple-400 text-xs opacity-80">{reaction.description}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -210,11 +210,11 @@ export default function ServicesPage() {
                                 )}
 
                                 {/* Connect/Disconnect Button */}
-                                <div className="mt-4 pt-4 border-t">
+                                <div className="mt-4 pt-4 border-t dark:border-gray-800">
                                     {connected ? (
                                         <button
                                             onClick={() => handleDisconnect(service.name)}
-                                            className="w-full py-2.5 bg-red-50 border border-red-200 text-red-600 rounded-lg hover:bg-red-100 transition flex items-center justify-center gap-2 font-medium"
+                                            className="w-full py-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/50 text-red-600 dark:text-red-500 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center justify-center gap-2 font-medium"
                                         >
                                             <FaTimes /> Disconnect
                                         </button>
@@ -222,7 +222,7 @@ export default function ServicesPage() {
                                         <button
                                             onClick={() => handleConnect(service)}
                                             disabled={connecting === service.name}
-                                            className="w-full py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition flex items-center justify-center gap-2 font-medium disabled:opacity-50"
+                                            className="w-full py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 dark:bg-none dark:bg-[#222222] dark:border dark:border-gray-700 dark:hover:bg-gray-800 text-white dark:text-gray-200 rounded-lg hover:opacity-90 transition flex items-center justify-center gap-2 font-medium disabled:opacity-50"
                                         >
                                             {connecting === service.name ? (
                                                 "Connecting..."
@@ -240,14 +240,14 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Summary */}
-                <div className="mt-10 bg-white p-6 rounded-xl shadow text-center">
-                    <p className="text-gray-600 mb-4">
-                        You have <strong className="text-green-600">{userServices.length}</strong> service(s) connected
+                <div className="mt-10 bg-white dark:bg-[#1A1A1A] dark:border dark:border-gray-800 p-6 rounded-xl shadow text-center">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        You have <strong className="text-green-600 dark:text-green-500">{userServices.length}</strong> service(s) connected
                     </p>
                     {userServices.length >= 2 && (
                         <button
                             onClick={() => navigate("/area")}
-                            className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg text-lg font-semibold hover:opacity-90 transition"
+                            className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 dark:bg-none dark:bg-[#222222] dark:border dark:border-gray-700 dark:hover:bg-gray-800 text-white dark:text-gray-200 rounded-lg text-lg font-semibold hover:opacity-90 transition"
                         >
                             Create an AREA →
                         </button>

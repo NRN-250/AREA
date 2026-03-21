@@ -4,7 +4,7 @@ import { FaHeart, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-100 py-8 mt-auto">
+    <footer className="bg-white dark:bg-[#1A1A1A] border-t border-gray-100 dark:border-gray-800 py-8 mt-auto transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
         
         {/* Brand & Copyright */}

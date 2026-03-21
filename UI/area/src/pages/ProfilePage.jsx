@@ -61,59 +61,59 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-        <p className="text-gray-500 text-lg animate-pulse">Loading profile...</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#111111] dark:to-[#111111] flex items-center justify-center">
+        <p className="text-gray-500 dark:text-gray-400 text-lg animate-pulse">Loading profile...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 py-12 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-purple-50 dark:from-[#111111] dark:to-[#111111] py-12 px-6 transition-colors duration-200">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white/80 backdrop-blur-xl border border-white p-8 rounded-3xl shadow-xl">
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 mb-2">
+        <div className="bg-white/80 dark:bg-[#1A1A1A] backdrop-blur-xl border border-white dark:border-gray-800 p-8 rounded-3xl shadow-xl">
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 dark:text-gray-100 dark:bg-none mb-2">
             Your Profile
           </h1>
-          <p className="text-gray-500 mb-8">Manage your account details and personal information.</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-8">Manage your account details and personal information.</p>
 
           {message && (
-            <div className="mb-6 p-4 rounded-xl bg-green-50/80 border border-green-200 text-green-700">
+            <div className="mb-6 p-4 rounded-xl bg-green-50/80 dark:bg-green-900/20 border border-green-200 dark:border-green-500/50 text-green-700 dark:text-green-400">
               {message}
             </div>
           )}
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50/80 border border-red-200 text-red-600">
+            <div className="mb-6 p-4 rounded-xl bg-red-50/80 dark:bg-red-900/20 border border-red-200 dark:border-red-500/50 text-red-600 dark:text-red-500">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSave} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
               <input
                 type="text"
                 name="name"
                 value={profile.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 bg-white/50 transition duration-200"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/50 dark:bg-[#111111] text-gray-900 dark:text-gray-100 transition duration-200"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
               <input
                 type="text"
                 name="username"
                 value={profile.username}
                 onChange={handleChange}
                 placeholder="johndoe123"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 bg-white/50 transition duration-200"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/50 dark:bg-[#111111] text-gray-900 dark:text-gray-100 transition duration-200"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -121,7 +121,7 @@ export default function ProfilePage() {
                 value={profile.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 bg-white/50 transition duration-200"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/50 dark:bg-[#111111] text-gray-900 dark:text-gray-100 transition duration-200"
               />
             </div>
 
@@ -129,7 +129,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 focus:ring-4 focus:ring-indigo-200 text-white px-8 py-3 rounded-xl font-medium shadow-md transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 dark:bg-none dark:bg-[#222222] dark:border dark:border-gray-700 hover:from-indigo-600 hover:to-purple-600 dark:hover:bg-gray-800 text-white dark:text-gray-200 px-8 py-3 rounded-xl font-medium shadow-md transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {saving ? "Saving Changes..." : "Save Changes"}
               </button>

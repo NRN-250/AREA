@@ -47,49 +47,49 @@ export default function TimerActionForm({ onCreated }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow-md max-w-md mx-auto"
+      className="bg-white dark:bg-[#1A1A1A] p-6 rounded-xl shadow-md max-w-md mx-auto border border-transparent dark:border-gray-800 text-gray-900 dark:text-gray-100"
     >
-      <h3 className="text-xl font-bold mb-4">Create Timer Email</h3>
+      <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">Create Timer Email</h3>
 
       <label className="block mb-3">
-        <span className="text-sm font-semibold">Time (HH:mm)</span>
+        <span className="text-sm font-semibold dark:text-gray-300">Time (HH:mm)</span>
         <input
           type="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
-          className="mt-1 w-full p-2 border rounded"
+          className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111111] text-gray-900 dark:text-gray-100 rounded"
           required
         />
       </label>
 
       <label className="block mb-3">
-        <span className="text-sm font-semibold">Recipient Email</span>
+        <span className="text-sm font-semibold dark:text-gray-300">Recipient Email</span>
         <input
           type="email"
           value={toEmail}
           onChange={(e) => setToEmail(e.target.value)}
-          className="mt-1 w-full p-2 border rounded"
+          className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111111] text-gray-900 dark:text-gray-100 rounded"
           required
         />
       </label>
 
       <label className="block mb-3">
-        <span className="text-sm font-semibold">Subject</span>
+        <span className="text-sm font-semibold dark:text-gray-300">Subject</span>
         <input
           type="text"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          className="mt-1 w-full p-2 border rounded"
+          className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111111] text-gray-900 dark:text-gray-100 rounded"
           required
         />
       </label>
 
       <label className="block mb-3">
-        <span className="text-sm font-semibold">Body</span>
+        <span className="text-sm font-semibold dark:text-gray-300">Body</span>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          className="mt-1 w-full p-2 border rounded"
+          className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111111] text-gray-900 dark:text-gray-100 rounded"
           rows={4}
           required
         />
@@ -99,7 +99,7 @@ export default function TimerActionForm({ onCreated }) {
         type="submit"
         disabled={loading}
         className={`mt-4 w-full text-white py-2 rounded transition ${
-          loading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-500 hover:bg-indigo-600"
+          loading ? "bg-gray-400 dark:bg-gray-700 cursor-not-allowed" : "bg-indigo-500 hover:bg-indigo-600 dark:bg-none dark:bg-[#222222] dark:border dark:border-gray-700 dark:hover:bg-gray-800"
         }`}
       >
         {loading ? "Creating..." : "Create Timer"}

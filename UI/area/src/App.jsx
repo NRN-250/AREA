@@ -10,14 +10,16 @@ import ServicesPage from "./pages/ServicesPage";
 import ProfilePage from "./pages/ProfilePage";
 import AboutPage from "./pages/AboutPage";
 import Footer from "./components/Footer";
+import { ThemeProvider } from "./ThemeContext";
 
 export default function App() {
   const token = localStorage.getItem("userToken");
 
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
+    <ThemeProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-[#111111] text-gray-900 dark:text-gray-100 transition-colors duration-200">
+          <Navbar />
         <main className="flex-grow">
           <Routes>
         <Route path="/" element={<Home />} />
@@ -61,6 +63,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }
