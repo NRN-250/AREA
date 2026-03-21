@@ -39,7 +39,7 @@ public class MailService {
             // Sender Identity
             Map<String, String> sender = new HashMap<>();
             sender.put("name", "Area Support");
-            sender.put("email", "noreply@area.support"); // Must be correctly verified inside Brevo Dashboard!
+            sender.put("email", "noahnganji40@gmail.com"); // Using the fully verified Gmail to bypass Spam filters
             requestBody.put("sender", sender);
 
             // Recipient Identity
