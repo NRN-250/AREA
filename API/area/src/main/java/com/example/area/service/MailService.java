@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,37 +21,48 @@ public class MailService {
 
     private static final Logger log = LoggerFactory.getLogger(MailService.class);
 
-    @Value("${resend.api.key}")
-    private String resendApiKey;
+    @Value("${brevo.api.key}")
+    private String brevoApiKey;
 
     public void send(String to, String subject, String body) {
         try {
-            log.info("Sending email to {} via Resend API with subject: {}", to, subject);
+            log.info("Sending email to {} via Brevo API with subject: {}", to, subject);
 
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(resendApiKey);
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.set("api-key", brevoApiKey);
 
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("from", "onboarding@resend.dev");
-            requestBody.put("to", List.of(to));
+            
+            // Sender Identity
+            Map<String, String> sender = new HashMap<>();
+            sender.put("name", "Area Support");
+            sender.put("email", "noreply@area.support"); // Must be correctly verified inside Brevo Dashboard!
+            requestBody.put("sender", sender);
+
+            // Recipient Identity
+            Map<String, String> recipient = new HashMap<>();
+            recipient.put("email", to);
+            requestBody.put("to", List.of(recipient));
+
             requestBody.put("subject", subject);
-            requestBody.put("html", "<p>" + body.replace("\n", "<br>") + "</p>");
+            requestBody.put("htmlContent", "<p>" + body.replace("\n", "<br>") + "</p>");
 
             HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
 
             ResponseEntity<String> response = restTemplate.exchange(
-                    "https://api.resend.com/emails",
+                    "https://api.brevo.com/v3/smtp/email",
                     HttpMethod.POST,
                     entity,
                     String.class
             );
 
-            log.info("Email sent successfully to {}. Resend Response: {}", to, response.getBody());
+            log.info("Email sent successfully to {}. Brevo Response: {}", to, response.getBody());
         } catch (Exception e) {
-            log.error("Failed to send email via Resend to {}: {}", to, e.getMessage());
-            throw new RuntimeException("Resend API failed: " + e.getMessage(), e);
+            log.error("Failed to send email via Brevo to {}: {}", to, e.getMessage());
+            throw new RuntimeException("Brevo API failed: " + e.getMessage(), e);
         }
     }
 }
