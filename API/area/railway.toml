@@ -1,7 +1,6 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "API/area/Dockerfile"
-buildCommand = ""
+builder = "NIXPACKS"
+buildCommand = "./mvnw clean package -DskipTests"
 
 [deploy]
-startCommand = "java -jar app.jar"
+startCommand = "java -jar target/*.jar"

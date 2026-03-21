@@ -1,3 +1,6 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "UI/area/Dockerfile"
+builder = "NIXPACKS"
+buildCommand = "npm install && npm run build"
+
+[deploy]
+startCommand = "npx serve -s dist -l $PORT"
