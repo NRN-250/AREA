@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["jdk", "maven"]
+nixPkgs = ["jdk21", "maven"]
 
 [phases.build]
 cmds = ["cd API/area && export MAVEN_OPTS=\"-Xmx256m\" && chmod +x mvnw && ./mvnw clean package -DskipTests"]
