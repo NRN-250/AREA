@@ -1,7 +1,5 @@
-providers = ["java"]
-
-[variables]
-NIXPACKS_JDK_VERSION = "21"
+[phases.setup]
+aptPkgs = ["openjdk-21-jdk", "maven"]
 
 [phases.build]
 cmds = ["cd API/area && export MAVEN_OPTS=\"-Xmx256m\" && chmod +x mvnw && ./mvnw clean package -DskipTests"]

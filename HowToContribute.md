@@ -1,24 +1,23 @@
 # How to Contribute to AREA
 
-This document provides instructions for contributing to the AREA project. Please follow these guidelines to ensure a smooth workflow and code review process.
+This document provides definitive instructions for contributing to the AREA project. Adhere strictly to these protocols to guarantee fluid integration and rapid CI/CD deployment.
 
 ## Branching Strategy
 
-- `main` – production-ready code (do **not** push or request PRs directly to this branch)
-- `dev` – active development branch (all PRs must be maid to this branch)
-- `feature/<feature-name>` – new features
+- `main` – The production-ready code. Commits made here instantly trigger Railway CI builds. Direct commits are restricted unless explicitly performing infrastructure hotfixes!
+- `dev` – Active development branch. All Pull Requests must target this branch first.
+- `feature/<feature-name>` – Ephemeral branches for constructing new services, actions, or reactions.
 
+## Commit Guidelines
 
-##  Commit Guidelines
+Use clear, deterministic commit messages. Prefix your commits based on their type, so Automated Changelogs can parse them accurately:
 
-Use clear and descriptive commit messages with the following prefixes:
+- **feat:** – A new platform feature (e.g. adding the Spotify service)
+- **fix:** – A bug fix or memory leak resolution
+- **docs:** – Updates to architectural documentation or README
+- **style:** – Code formatting or whitespace optimization
+- **test:** – Adding or patching JUnit system tests
+- **chore:** – Infrastructure, Nixpacks updates, or dependency management
 
-- feat: – new feature
-
-- fix: – bug fix
-
-- docs: – documentation
-
-- style: – formatting or whitespace changes
-
-- test: – adding or updating test
+### Formatting Example:
+`[fix]: repair the SMTP mail routing port bounds to avoid silent STARTTLS timeouts`
