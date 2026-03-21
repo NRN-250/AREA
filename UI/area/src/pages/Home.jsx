@@ -128,6 +128,12 @@ export default function Home() {
                 <span className="font-semibold text-gray-800">Google</span>
               </div>
             </div>
+
+            <div className="mt-10 text-center">
+              <span className="inline-block px-5 py-2.5 bg-indigo-50 text-indigo-700 font-semibold rounded-full text-sm border border-indigo-100 shadow-sm">
+                ✨ And many more services coming soon...
+              </span>
+            </div>
           </div>
         </div>
       </section>

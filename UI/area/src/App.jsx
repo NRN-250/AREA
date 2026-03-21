@@ -8,14 +8,18 @@ import AppletsPage from "./pages/AppletsPage";
 import TimerActionsPage from "./pages/TimerActionsPage";
 import ServicesPage from "./pages/ServicesPage";
 import ProfilePage from "./pages/ProfilePage";
+import AboutPage from "./pages/AboutPage";
+import Footer from "./components/Footer";
 
 export default function App() {
   const token = localStorage.getItem("userToken");
 
   return (
     <Router>
-      <Navbar />
-      <Routes>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
         <Route path="/" element={<Home />} />
 
         <Route
@@ -50,9 +54,13 @@ export default function App() {
           element={token ? <ProfilePage /> : <Navigate to="/auth" />}
         />
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+          <Route path="/about" element={<AboutPage />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
-
