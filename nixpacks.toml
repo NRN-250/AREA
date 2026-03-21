@@ -2,7 +2,7 @@
 nixPkgs = ["jdk", "maven"]
 
 [phases.build]
-cmds = ["cd API/area && chmod +x mvnw && ./mvnw clean package -DskipTests"]
+cmds = ["cd API/area && export MAVEN_OPTS=\"-Xmx256m\" && chmod +x mvnw && ./mvnw clean package -DskipTests"]
 
 [start]
-cmd = "cd API/area && java -jar target/*.jar"
+cmd = "cd API/area && java -Xmx256m -jar target/*.jar"
