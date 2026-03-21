@@ -7,6 +7,7 @@ import AreaPage from "./pages/AreaPage";
 import AppletsPage from "./pages/AppletsPage";
 import TimerActionsPage from "./pages/TimerActionsPage";
 import ServicesPage from "./pages/ServicesPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   const token = localStorage.getItem("userToken");
@@ -42,6 +43,11 @@ export default function App() {
         <Route
           path="/timer-actions"
           element={token ? <TimerActionsPage /> : <Navigate to="/auth" />}
+        />
+
+        <Route
+          path="/profile"
+          element={token ? <ProfilePage /> : <Navigate to="/auth" />}
         />
 
         <Route path="*" element={<Navigate to="/" />} />
