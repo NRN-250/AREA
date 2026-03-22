@@ -1,45 +1,59 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
+import { FaUserCircle, FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
 import api from "../api/api";
 
-export default function Navbar() {
+export default function Navbar({ onAuthChange }) {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);       // dropdown under profile icon
+  const [mobileOpen, setMobileOpen] = useState(false);  // hamburger mobile menu
   const [username, setUsername] = useState("");
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
+  const syncAuth = () => {
     const token = localStorage.getItem("userToken");
     setLoggedIn(!!token);
     if (token) {
       api.get("/api/user/profile")
         .then(res => setUsername(res.data.username || res.data.email || ""))
         .catch(() => setUsername(""));
+    } else {
+      setUsername("");
     }
+  };
+
+  useEffect(() => {
+    syncAuth();
+    window.addEventListener("authChange", syncAuth);
+    return () => window.removeEventListener("authChange", syncAuth);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
+    window.dispatchEvent(new Event("authChange"));
+    if (onAuthChange) onAuthChange();
     setLoggedIn(false);
     setMenuOpen(false);
+    setMobileOpen(false);
     setUsername("");
     navigate("/auth");
   };
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <nav className="bg-white dark:bg-[#1A1A1A] shadow-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-wide">
+        <Link to="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-wide" onClick={closeMobile}>
           AREA
         </Link>
 
-        {/* Links */}
-        <div className="flex items-center gap-6">
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
             Home
           </Link>
@@ -58,7 +72,7 @@ export default function Navbar() {
             </>
           )}
 
-          {/* Theme Toggle Button */}
+          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
@@ -87,7 +101,7 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Dropdown */}
+              {/* Desktop dropdown */}
               {menuOpen && (
                 <div className="absolute right-0 mt-3 w-44 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg overflow-hidden z-50">
                   {username && (
@@ -98,10 +112,7 @@ export default function Navbar() {
                   )}
                   <button
                     className="w-full text-left px-4 py-2 text-gray-800 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate("/profile");
-                    }}
+                    onClick={() => { setMenuOpen(false); navigate("/profile"); }}
                   >
                     Profile
                   </button>
@@ -117,7 +128,70 @@ export default function Navbar() {
           )}
         </div>
 
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="flex md:hidden items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            aria-label="Toggle Theme"
+          >
+            {theme === "light" ? <FaMoon size={18} /> : <FaSun size={18} />}
+          </button>
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            aria-label="Toggle Menu"
+          >
+            {mobileOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Panel */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white dark:bg-[#1A1A1A] border-t border-gray-100 dark:border-gray-800 px-6 py-4 space-y-3">
+          <Link to="/" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+            Home
+          </Link>
+
+          {loggedIn && (
+            <>
+              <Link to="/services" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+                Services
+              </Link>
+              <Link to="/area" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+                Area
+              </Link>
+              <Link to="/applets" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+                My Applets
+              </Link>
+            </>
+          )}
+
+          <div className="border-t border-gray-100 dark:border-gray-800 pt-3">
+            {!loggedIn ? (
+              <Link to="/auth" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+                Login
+              </Link>
+            ) : (
+              <>
+                {username && (
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Signed in as <span className="font-semibold text-gray-700 dark:text-gray-300">{username}</span></p>
+                )}
+                <Link to="/profile" onClick={closeMobile} className="block text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2 transition">
+                  Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left text-red-600 dark:text-red-500 hover:text-red-700 py-2 transition"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

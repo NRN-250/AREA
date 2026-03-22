@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 
-export default function AuthPage() {
+export default function AuthPage({ onLogin }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,10 @@ export default function AuthPage() {
       if (mode === "login") {
         const res = await api.post("/api/auth/login", { email, password });
         localStorage.setItem("userToken", res.data.token);
-        window.location.href = "/";
+        // Notify App.jsx immediately — no page reload needed
+        window.dispatchEvent(new Event("authChange"));
+        if (onLogin) onLogin();
+        navigate("/");
       } else {
         await api.post("/api/auth/register", { email, username, password });
         setMessage("Registered! Please log in.");
