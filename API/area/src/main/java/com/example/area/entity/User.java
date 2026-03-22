@@ -30,6 +30,9 @@ public class User {
 
     private String username;
 
+    @Column(columnDefinition = "TEXT")
+    private String avatarUrl;
+
     @Column(nullable = false)
     private Boolean confirmed = false;
 

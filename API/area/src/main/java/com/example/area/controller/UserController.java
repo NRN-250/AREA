@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -31,6 +32,10 @@ public class UserController {
         public String email;
     }
 
+    public static class AvatarRequest {
+        public String avatarUrl; // base64 data URL, e.g. "data:image/png;base64,..."
+    }
+
     @GetMapping
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal String email) {
         if (email == null) return ResponseEntity.status(401).body("Unauthorized");
@@ -38,11 +43,15 @@ public class UserController {
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) return ResponseEntity.status(404).body("User not found");
 
-        return ResponseEntity.ok(Map.of(
-                "name", user.getName() != null ? user.getName() : "",
-                "username", user.getUsername() != null ? user.getUsername() : "",
-                "email", user.getEmail()
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("name",      user.getName()      != null ? user.getName()      : "");
+        response.put("username",  user.getUsername()  != null ? user.getUsername()  : "");
+        response.put("email",     user.getEmail());
+        response.put("avatarUrl", user.getAvatarUrl() != null ? user.getAvatarUrl() : "");
+        response.put("provider",  user.getProvider()  != null ? user.getProvider()  : "local");
+        response.put("createdAt", user.getCreatedAt() != null ? user.getCreatedAt().toString() : "");
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
@@ -81,5 +90,27 @@ public class UserController {
         } else {
             return ResponseEntity.ok(Map.of("message", "Profile updated successfully"));
         }
+    }
+
+    @PutMapping("/avatar")
+    public ResponseEntity<?> updateAvatar(@AuthenticationPrincipal String email, @RequestBody AvatarRequest request) {
+        if (email == null) return ResponseEntity.status(401).body("Unauthorized");
+
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null) return ResponseEntity.status(404).body("User not found");
+
+        if (request.avatarUrl == null || request.avatarUrl.isBlank()) {
+            return ResponseEntity.badRequest().body("avatarUrl is required");
+        }
+
+        // Limit size to ~2MB of base64 data
+        if (request.avatarUrl.length() > 2_800_000) {
+            return ResponseEntity.badRequest().body("Image too large. Please use an image under 2MB.");
+        }
+
+        user.setAvatarUrl(request.avatarUrl);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(Map.of("message", "Avatar updated successfully", "avatarUrl", user.getAvatarUrl()));
     }
 }

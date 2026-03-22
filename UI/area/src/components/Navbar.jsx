@@ -7,9 +7,10 @@ import api from "../api/api";
 export default function Navbar({ onAuthChange }) {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);       // dropdown under profile icon
-  const [mobileOpen, setMobileOpen] = useState(false);  // hamburger mobile menu
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [username, setUsername] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const syncAuth = () => {
@@ -17,17 +18,25 @@ export default function Navbar({ onAuthChange }) {
     setLoggedIn(!!token);
     if (token) {
       api.get("/api/user/profile")
-        .then(res => setUsername(res.data.username || res.data.email || ""))
-        .catch(() => setUsername(""));
+        .then(res => {
+          setUsername(res.data.username || res.data.email || "");
+          setAvatarUrl(res.data.avatarUrl || "");
+        })
+        .catch(() => { setUsername(""); setAvatarUrl(""); });
     } else {
       setUsername("");
+      setAvatarUrl("");
     }
   };
 
   useEffect(() => {
     syncAuth();
     window.addEventListener("authChange", syncAuth);
-    return () => window.removeEventListener("authChange", syncAuth);
+    window.addEventListener("avatarChange", syncAuth);
+    return () => {
+      window.removeEventListener("authChange", syncAuth);
+      window.removeEventListener("avatarChange", syncAuth);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -93,7 +102,11 @@ export default function Navbar({ onAuthChange }) {
                 className="flex flex-col items-center gap-0.5 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
                 onClick={() => setMenuOpen((prev) => !prev)}
               >
-                <FaUserCircle size={22} />
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="avatar" className="w-8 h-8 rounded-xl object-cover border-2 border-indigo-300 dark:border-indigo-600" />
+                ) : (
+                  <FaUserCircle size={22} />
+                )}
                 {username && (
                   <span className="text-xs font-semibold leading-none max-w-[80px] truncate">
                     {username}
