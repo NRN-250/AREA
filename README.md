@@ -57,6 +57,16 @@ If you intend to host or build this platform manually from source:
 - **Apache Maven** (`mvnw` wrapper provided)
 - **Node.js** (v20+)
 
+## 📚 Documentation
+
+Detailed documentation is available in the **[docs/](docs/)** folder:
+
+-   **[Setup Guide](docs/SETUP.md):** How to get the platform running locally.
+-   **[Architecture](docs/ARCHITECTURE.md):** Detailed technical overview of the Action-Reaction model.
+-   **[Available Services](docs/SERVICES.md):** List of supported Actions and Reactions.
+-   **[Security Policy](docs/SECURITY.md):: How to report vulnerabilities and supported versions.
+-   **[Contributing](docs/CONTRIBUTING.md):** Guidelines for adding new features or services.
+
 ## 🚀 Deployment (Railway AI Container)
 This project natively implements a `nixpacks.toml` file to effortlessly deploy on Nixpacks-compatible hosts (such as Railway).
 Pushing code to the `main` branch will automatically invoke the CI/CD pipeline, downloading the strict JDK-21 environment, allocating Memory-Optimized Maven instances, and compiling target JARs.
