@@ -10,6 +10,7 @@ import TimerActionsPage from "./pages/TimerActionsPage";
 import ServicesPage from "./pages/ServicesPage";
 import ProfilePage from "./pages/ProfilePage";
 import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./ThemeContext";
 
@@ -73,6 +74,7 @@ export default function App() {
               />
 
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
 
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
