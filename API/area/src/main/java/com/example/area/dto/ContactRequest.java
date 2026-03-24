@@ -18,4 +18,7 @@ public class ContactRequest {
 
     @NotBlank(message = "Message is required")
     private String message;
+
+    // Optional: populated by frontend if reCAPTCHA is enabled
+    private String recaptchaToken;
 }

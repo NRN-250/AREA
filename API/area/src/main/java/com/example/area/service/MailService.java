@@ -60,6 +60,9 @@ public class MailService {
             );
 
             log.info("Email sent successfully to {}. Brevo Response: {}", to, response.getBody());
+        } catch (org.springframework.web.client.HttpClientErrorException e) {
+            log.error("Brevo API client error for recipient {}: {} - Response Body: {}", to, e.getMessage(), e.getResponseBodyAsString());
+            throw new RuntimeException("Brevo API client error: " + e.getResponseBodyAsString(), e);
         } catch (Exception e) {
             log.error("Failed to send email via Brevo to {}: {}", to, e.getMessage());
             throw new RuntimeException("Brevo API failed: " + e.getMessage(), e);
