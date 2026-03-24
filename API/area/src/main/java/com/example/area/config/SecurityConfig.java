@@ -84,6 +84,7 @@ public class SecurityConfig {
                                                 .requestMatchers(
                                                                 "/auth/**",
                                                                 "/api/auth/**",
+                                                                "/api/contact",
                                                                 "/api/test/**",
                                                                 "/api/webhooks/**",
                                                                 "/h2-console/**",
